@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>demo</title>
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        var local = "http://localhost:8680/login.json";
+        $(document).ready(function () {
+            $("#click").click(function () {
+                var userName = $("#userName").val();
+                var pwd = $("#pwd").val();
+                if (userName == "" || pwd == "") {
+                    alert("input userName or pwd");
+                    return;
+                }
+
+                $.ajax({
+                           url: local + "/" + userName + "/" + pwd,
+                           type: 'get',
+                           contentType: "application/json; charset=utf-8",
+                           success: function (data) {
+                               $("#result").val(data);
+                           },
+                           error: function (data, textStatus, errorThrown) {
+                               alert(errorThrown);
+                           }
+                       });
+            });
+        });
+    </script>
+</head>
+<body>
+用户名:<input type="text" id="userName"/><br/>
+密码:<input type="text" id="pwd"/><br/>
+<input type="button" id="click" value="登录"/><br/>
+结果:<input type="text" id="result"/>
+</body>
+</html>
